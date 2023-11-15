@@ -1,0 +1,30 @@
+{% extends '_base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="mx-auto w-50">
+                    <h5>Post:</h5>
+                    <hr>
+                    <p>{{post.description}}</p>
+                    <img src="{{post.image.url}}" alt="" style="height: 35rem;">
+                    <p>Are you sure want to this Post?</p>
+                    <div class="row">
+                        <div class="col-2">
+                            <form action="" method="POST">{% csrf_token %}
+                                <input type="submit" value="Delete" class="btn btn-danger">
+                            </form>
+                        </div>
+                        <div class="col">
+                            <a href="{% url 'post' %}" class="btn btn-primary">Go Back</a>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

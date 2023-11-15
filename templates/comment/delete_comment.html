@@ -1,0 +1,22 @@
+{% extends '_base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p>Are you sure want to delete comment</p>
+            </div>
+            <div class="row">
+                <div class="col-1">
+                    <form action="" method="POST">{% csrf_token %}
+                        <input type="submit" value="Delete" class="btn btn-danger">
+                    </form>
+                </div>
+                <div class="col-2">
+                    <a href="{% url 'detail_post' comment.post.id %}" class="btn btn-primary">Go Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

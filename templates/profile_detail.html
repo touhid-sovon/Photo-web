@@ -1,0 +1,30 @@
+{% extends '_base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<h4 style="text-align: center;"><span style="text-transform: uppercase;">{{user.username}}</span>'s Profile</h4>
+<div class="card container d-flex justify-content-center align-items-center" style="width: 18rem;">
+    {% if user.profile_picture %}
+    <img class="card-img-top" src="{{user.profile_picture.url}}" alt="Card image cap">
+    {% else %}
+    <img class="card-img-top" src="{% static 'images/profile.jpg' %}" alt="Card image cap">
+    {% endif %}
+  <div class="card-body">
+    <p><b>Name: </b>{{user.username}}</p>
+    <p><b>First Name: </b>{{user.first_name}}</p>
+    <p><b>Last Name: </b>{{user.last_name}}</p>
+    <p><b>Email: </b>{{user.email}}</p>
+  </div>
+</div>
+<br>
+<div class="container">
+    <h4 style="text-decoration: underline;">Uploads</h4>
+    {% for image in user.post_set.all %} 
+      <img src="{{image.image.url}}" style="width: 20rem;" >
+      <hr>
+    {% endfor %}
+</div>
+
+{% endblock content %}

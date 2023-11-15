@@ -1,0 +1,12 @@
+{% extends '_base.html' %}
+
+
+{% block title %}Log Out Page{% endblock title %}
+
+{% block content %}
+    <h2>Log Out</h2>
+
+    <p>Are you sure that you want to logout?</p>
+    <button class="btn btn-danger"><a href="{% url 'logout' %}">Log Out</a></button>
+    <button class="btn btn-light" ><a href="{% url 'home' %}">Go Back</a></button>
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends '_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h4>Add Comment</h4>
+
+{% if user.is_authenticated %}
+
+    <form method="POST" >{% csrf_token %}
+        {{form|crispy}}
+        <input type="submit" value="Comment" class="btn btn-primary">
+    </form>
+{% endif %}
+
+{% endblock content %}

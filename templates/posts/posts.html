@@ -1,0 +1,31 @@
+{% extends '_base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<h4>This is Post Page  <a href="{% url 'create_post' %}" style="float: right;">Add New</a></h4>
+<hr>
+
+<div class="container" >
+    {% for post in posts %}
+        <p> 
+             {% if post.user.profile_picture %} <!-- profile picture  -->
+                <span> <img src="{{post.user.profile_picture.url}}" alt="" class="round_image""></span>
+            {% else %}
+                <span> <img src="{% static 'images/profile.jpg' %}" alt="" class="round_image""></span>
+            {% endif %}
+            <a href="{% url 'account' post.user.id %}">{{post}}</a>
+        </p>
+        <p style="width: 20rem;">{{post.description}} 
+            {% if post.user == request.user %}
+            <span style="float: right;"><a href="{% url 'update_post' post.id %}">Edit</a> <a href="{% url 'delete_post' post.id %}">Delete</a></span>
+            {% endif %}
+        </p>
+        <a href="{% url 'detail_post' post.id %}"><img src="{{post.image.url}}" style="width: 20rem;" ></a>
+        
+        <hr>
+    {% endfor %}
+</div>
+
+{% endblock content %}

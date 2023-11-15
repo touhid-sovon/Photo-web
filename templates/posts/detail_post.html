@@ -1,0 +1,80 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="conainter">
+    <div class="row">
+    <div class="col-6">
+      <img style="width: 40rem; height:auto; " src="{{post.image.url}}" alt="" >
+    </div>
+    <div class="col-6">
+      <p>
+        {% if post.user.profile_picture %}
+        <span> <img src="{{post.user.profile_picture.url}}" alt="" class="round_image""></span>
+        {% else %}
+        <span> <img src="{% static 'images/profile.jpg' %}" alt="" class="round_image""></span>
+        {% endif %}
+        <a style="text-transform: uppercase;" href="{% url 'account' post.user.id %}">{{post.user}}</a
+        </p>
+      <hr>
+      <caption>
+        {{post.description}}
+        {% if post.user == request.user %}
+        <span style="float: right;"><a href="{% url 'update_post' post.id %}">Edit</a> <a href="{% url 'delete_post' post.id %}">Delete</a></span> 
+        
+        {% endif %}
+      </caption>
+      <br>
+      <br>
+      <div class="row">
+        {%  if request.user not in post.liked.all%}
+        <div class="col-1">
+          <form action="{% url 'like_post' post.pk %}" method="POST">{% csrf_token %}
+
+            <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm" >like</button>
+          </form>
+        </div>
+        
+        {% else %}
+
+        <div class="col-1">
+          <form action="{% url 'like_post' post.pk %}" method="POST">{% csrf_token %}
+
+            <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm" >Unlike</button>
+          </form>
+        </div>
+        {% endif %}
+        
+        <div style="margin-left: 2rem;" class="col-2">
+          <strong>{{post.total_likes_count}}</strong><span>:Likes</span>
+        </div>
+        
+        
+
+      </div>
+      <hr>
+      <h5><b>Comments:({{post.comment_set.all.count}}) <span style="float: right;"><a href="{% url 'create_comment' post.id %}" class="btn btn-primary">Add Comment</a></span></b></h5>
+      <hr>
+      {% for comment in post.comment_set.all %}
+        <p>
+          {% if comment.user.profile_picture %}
+            <span> <img src="{{comment.user.profile_picture.url}}" alt="" class="round_image""></span>
+          {% else %}
+            <span> <img src="{% static 'images/profile.jpg' %}" alt="" class="round_image""></span>
+          {% endif %}
+          <a href="{% url 'profile' comment.user.id %}"><strong> {{comment.user}}</strong></a>
+          <span style="color: #CCCCCC;">|{{comment.date_created}}</span> 
+          {% if comment.user == request.user %}
+          <span style="float: right;"><a href="{% url 'update_comment' comment.id %}">Edit</a> <a href="{% url 'delete_comment' comment.id %}">Delete</a></span>
+          {% elif post.user == request.user %}
+          <span style="float: right;"><a href="{% url 'delete_comment' comment.id %}">Delete</a></span>
+          {% endif %}
+        
+        </p>
+        <p>{{comment}}</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,26 @@
+{% extends '_base.html' %}
+
+{% block title %}Messages{% endblock title %}
+
+{% block content %}
+    <h4 style="text-align: center;">Inbox Page</h4>
+    <br>
+    <br>
+
+    <div class="conaitner">
+        <ul>
+            {% for message in messages %}
+                <a href="{% url 'inbox_detail' message.receiver.id message.sender.id  %}" style="text-decoration: none;color:black;">
+                    <li>
+                        <strong>From: {{ message.sender }} {{message.sender.id}} </strong>
+                        <p>{{ message.body }}</p>
+                        <p>Sent on: {{ message.date_created }}</p>
+                    </li>
+                </a>
+                
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock content %}
+

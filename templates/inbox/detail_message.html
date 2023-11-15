@@ -1,0 +1,10 @@
+{% extends '_base.html' %}
+
+{% block title %}Inbox Detail{% endblock title %}
+
+{% block content %}
+    <h3>{{message.sender.id}}'s Conversation</h3>
+
+    <p><Strong>{{message.sender}}:</Strong>{{message}}</p>
+
+{% endblock content %}
